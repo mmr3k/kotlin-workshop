@@ -10,8 +10,8 @@ import refactored.domain.DomainException
 import refactored.domain.DomainServiceImpl
 import refactored.testdoubles.MockDomainRepository
 
-typealias ValidationDomainException = DomainException.Validation
 typealias NotFoundDomainException = DomainException.NotFound
+typealias ValidationDomainException = DomainException.Validation
 
 class EndpointTest {
 
