@@ -9,7 +9,7 @@ sealed interface DiscountStrategy {
     class Fixed(val value: Money) : DiscountStrategy {
 
         override fun calculateDiscountedValue(amount: Money): Money {
-            val discountedValue = amount.minus(value)
+            val discountedValue = amount - value
             return if (discountedValue.value > BigDecimal.ZERO) {
                 discountedValue
             } else {
@@ -21,6 +21,6 @@ sealed interface DiscountStrategy {
     class Percentage(val percent: Percent) : DiscountStrategy {
 
         override fun calculateDiscountedValue(amount: Money): Money =
-            amount.minus(amount.times(percent))
+            amount - (amount * percent)
     }
 }

@@ -15,7 +15,7 @@ class MoneyTest {
         val tenEur = Money(BigDecimal.valueOf(10), Currency.EUR)
 
         // when
-        val result = oneEur.plus(tenEur)
+        val result = oneEur + tenEur
 
         // then
         assertThat(result.value).isEqualTo(BigDecimal.valueOf(11))
@@ -29,7 +29,7 @@ class MoneyTest {
         val tenEur = Money(BigDecimal.valueOf(10), Currency.EUR)
 
         // when
-        val result = tenEur.minus(oneEur)
+        val result = tenEur - oneEur
 
         // then
 
@@ -44,8 +44,8 @@ class MoneyTest {
         val tenEur = Money(BigDecimal.valueOf(10), Currency.EUR)
 
         // when
-        val firstResult = oneEur.plus(tenEur)
-        val secondResult = tenEur.plus(oneEur)
+        val firstResult = oneEur + tenEur
+        val secondResult = tenEur + oneEur
 
         // then
         assertThat(firstResult).isEqualTo(secondResult)
@@ -59,9 +59,7 @@ class MoneyTest {
 
         // when
         val whenBlock = {
-            oneEur.plus(
-                onePln
-            )
+            oneEur + onePln
         }
 
         // then
@@ -75,7 +73,7 @@ class MoneyTest {
         val threePercent = Percent(BigDecimal.valueOf(3.5))
 
         // when
-        val result = tenEur.times(threePercent)
+        val result = tenEur * threePercent
 
         // then
         assertThat(result.value).isEqualTo(BigDecimal.valueOf(0.35))
