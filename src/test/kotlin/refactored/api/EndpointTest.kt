@@ -6,76 +6,15 @@ import assertk.assertions.isNull
 import common.DomainObject
 import common.DomainObjectApiResponse
 import org.junit.jupiter.api.Test
+import refactored.domain.DomainException
 import refactored.domain.DomainServiceImpl
 import refactored.testdoubles.MockDomainRepository
 
+typealias ValidationDomainException = DomainException.Validation
+typealias NotFoundDomainException = DomainException.NotFound
+
 class EndpointTest {
 
-//    private typealias NotFoundDomainException = DomainException.NotFound()
-//    private typealias ValidationDomainException = DomainException.Validation()
-//
-//    private val repository = MockDomainRepository()
-//    private val endpoint = TODO()
-//
-//    @Test
-//    fun `should return response entity with domain object`() {
-//        // given
-//        repository returns DomainObject(1L, "name")
-//
-//        // when
-//        val response = endpoint.handle()
-//
-//        // then
-//        assertThat(response).apply {
-//            transform { it.statusCode }.isEqualTo(200)
-//            transform { it.body }.isEqualTo(DomainObjectApiResponse(1L, "name"))
-//        }
-//    }
-//
-//    @Test
-//    fun `should return response entity with 404 status code`() {
-//        // given
-//        repository throws NotFoundDomainException()
-//
-//        // when
-//        val response = endpoint.handle()
-//
-//        // then
-//        assertThat(response).apply {
-//            transform { it.statusCode }.isEqualTo(404)
-//            transform { it.body }.isNull()
-//        }
-//    }
-//
-//    @Test
-//    fun `should return response entity with 400 status code`() {
-//        // given
-//        repository throws ValidationDomainException()
-//
-//        // when
-//        val response = endpoint.handle()
-//
-//        // then
-//        assertThat(response).apply {
-//            transform { it.statusCode }.isEqualTo(400)
-//            transform { it.body }.isNull()
-//        }
-//    }
-//
-//    @Test
-//    fun `should return response entity with 500 status code`() {
-//        // given
-//        repository throws RuntimeException()
-//
-//        // when
-//        val response = endpoint.handle()
-//
-//        // then
-//        assertThat(response).apply {
-//            transform { it.statusCode }.isEqualTo(500)
-//            transform { it.body }.isNull()
-//        }
-//    }
     private val repository = MockDomainRepository()
     private val endpoint = Endpoint(DomainServiceImpl(repository))
 
@@ -97,7 +36,7 @@ class EndpointTest {
     @Test
     fun `should return response entity with 404 status code`() {
         // given
-        repository throws NotFoundDomainException()
+        repository throws NotFoundDomainException("info")
 
         // when
         val response = endpoint.handle()
@@ -112,7 +51,7 @@ class EndpointTest {
     @Test
     fun `should return response entity with 400 status code`() {
         // given
-        repository throws ValidationDomainException()
+        repository throws ValidationDomainException("info")
 
         // when
         val response = endpoint.handle()
